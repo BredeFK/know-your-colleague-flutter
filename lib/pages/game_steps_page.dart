@@ -23,9 +23,16 @@ class GameStepsPage extends StatefulWidget {
 class _GameStepsPageState extends State<GameStepsPage> {
   late List<GameData> games;
   int score = 0;
+
+  late int totalGames;
+
+  late int tries = 0;
+
   @override
   void initState() {
     this.games = widget.games;
+    this.totalGames = widget.games.length;
+    this.tries = 0;
   }
 
   @override
@@ -33,13 +40,14 @@ class _GameStepsPageState extends State<GameStepsPage> {
     if (games.length == 0) {
       return GameFinishedPage(score);
     }
+
     GameData game =  games.removeLast();
     game.options.shuffle();
     return Column(
       children: <Widget>[FittedBox(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: const Text('Test 1/1')
+          child:  Text("Total poengsum: $score etter $tries av $totalGames forsøk.", style: const TextStyle(fontSize: 22))
         ),
         fit: BoxFit.fill,
       ),SizedBox(
@@ -59,7 +67,8 @@ class _GameStepsPageState extends State<GameStepsPage> {
             onPressed: () {
               setState(() {
                 if (e.correct) {
-                  this.score++;
+                  score++;
+                  tries++;
                 }
               });
             },
