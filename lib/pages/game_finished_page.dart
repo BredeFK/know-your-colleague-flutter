@@ -22,13 +22,20 @@ class GameFinishedPage extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text("$score"),
-              Expanded(
-                child: ListView(
-                  children: _allScoreRoundsAsWidgets(scoreRounds),
-                ),
-                flex: 80,
+              Text(
+                "Dine poeng $score",
+                style: const TextStyle(fontSize: 50.0),
               ),
+              Text(
+                "Poeng totalt fra de ti siste rundene ${_getSum(scoreRounds)}",
+                style: const TextStyle(fontSize: 20.0),
+              ),
+              Expanded(
+                  child: ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(20.0),
+                children: _allScoreRoundsAsWidgets(scoreRounds),
+              )),
             ],
           );
         } else if (snapshot.hasError) {
@@ -39,24 +46,26 @@ class GameFinishedPage extends StatelessWidget {
         }
       },
     );
-
-    /*Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(context, SlideRightRoute(page: DashboardPage()), ModalRoute.withName(''));
-          },
-          child: const Text('Dashboard'),
-        ),
-      ),
-    );
-     */
   }
+}
+
+int _getSum(List<ScoreRound> scoreRounds) {
+  var sum = 0;
+  for (var element in scoreRounds) {
+    sum += element.points;
+  }
+  return sum;
 }
 
 List<Widget> _allScoreRoundsAsWidgets(List<ScoreRound> scoreRounds) {
   return scoreRounds
       .map((scoreRound) => ListTile(
-            title: Text('${scoreRound.points} - ${scoreRound.date}'),
+            title: Text(
+              '${scoreRound.points}      ${scoreRound.date}',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: generateMaterialColor(Palette.secondary)),
+            ),
           ))
       .toList();
 }
@@ -71,12 +80,16 @@ Future<List<ScoreRound>> _saveAndGetScore(score) async {
     scoresList.add(sr);
   } else {
     scoresList = ScoreRound.decode(scoresAsString);
-    scoresList.add(sr);
+    var list = scoresList.where((item) => item.date == sr.date);
+    if (list.isEmpty) {
+      scoresList.add(sr);
+    }
   }
   prefs.setString('scores', ScoreRound.encode(scoresList));
 
-  scoresList.sort((x, y) => y.points - x.points);
-  return scoresList;
+  var lastTen = scoresList.sublist(scoresList.length - 10);
+  lastTen.sort((x, y) => y.points - x.points);
+  return lastTen;
 }
 
 String getDateAsString() {
