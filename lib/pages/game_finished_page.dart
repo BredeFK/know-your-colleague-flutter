@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:know_your_colleague_flutter/domain/scoreround.dart';
 import 'package:know_your_colleague_flutter/pages/dashboard_page.dart';
 import 'package:know_your_colleague_flutter/theme/material_color_generator.dart';
@@ -18,8 +19,17 @@ class GameFinishedPage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
           List<ScoreRound> scoreRounds = snapshot.data;
-          return ListView(
-            children: _allScoreRoundsAsWidgets(scoreRounds),
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text("$score"),
+              Expanded(
+                child: ListView(
+                  children: _allScoreRoundsAsWidgets(scoreRounds),
+                ),
+                flex: 80,
+              ),
+            ],
           );
         } else if (snapshot.hasError) {
           return const Center(
@@ -46,10 +56,7 @@ class GameFinishedPage extends StatelessWidget {
 List<Widget> _allScoreRoundsAsWidgets(List<ScoreRound> scoreRounds) {
   return scoreRounds
       .map((scoreRound) => ListTile(
-            title: Text(
-              '${scoreRound.points} - ${scoreRound.date}',
-              style: TextStyle(color: generateMaterialColor(Palette.text)),
-            ),
+            title: Text('${scoreRound.points} - ${scoreRound.date}'),
           ))
       .toList();
 }
