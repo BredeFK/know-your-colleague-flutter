@@ -66,9 +66,9 @@ class _GameStepsPageState extends State<GameStepsPage> {
           child: ElevatedButton(
             onPressed: () {
               setState(() {
+                tries++;
                 if (e.correct) {
                   score++;
-                  tries++;
                 }
               });
             },
