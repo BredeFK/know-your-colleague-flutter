@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:know_your_colleague_flutter/domain/colleague.dart';
 import 'package:know_your_colleague_flutter/transitions/slide_transitions.dart';
@@ -22,7 +22,15 @@ class GamePage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return const Center(child: Text('Funket ikke :('));
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/logo.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              child:Center(child: CircularProgressIndicator())
+            );
           }
         },
       ),
@@ -30,6 +38,7 @@ class GamePage extends StatelessWidget {
   }
 
   Future<List<GameData>> _getGames(int count) async {
+    await new Future.delayed(const Duration(seconds: 2));
     dynamic response = await _fetchPeople();
     List<dynamic> colleaguesJson = jsonDecode(response.body);
 
