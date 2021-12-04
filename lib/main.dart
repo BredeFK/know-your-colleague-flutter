@@ -23,13 +23,24 @@ class MainAppWidget extends StatelessWidget {
         '/game': (context) => const GamePage()
       },
       theme: ThemeData(
-        primarySwatch: generateMaterialColor(Palette.primary),
-        scaffoldBackgroundColor: generateMaterialColor(Palette.background),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-              primary: generateMaterialColor(Palette.secondary)),
-        ),
-      ),
+          primarySwatch: generateMaterialColor(Palette.primary),
+          scaffoldBackgroundColor: generateMaterialColor(Palette.background),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                primary: generateMaterialColor(Palette.secondary)),
+          ),
+          textTheme: TextTheme(
+            bodyText1: TextStyle(color: generateMaterialColor(Palette.text)),
+            bodyText2: TextStyle(color: generateMaterialColor(Palette.text)),
+            headline1: TextStyle(color: generateMaterialColor(Palette.text)),
+            headline2: TextStyle(color: generateMaterialColor(Palette.text)),
+            headline3: TextStyle(color: generateMaterialColor(Palette.text)),
+            headline4: TextStyle(color: generateMaterialColor(Palette.text)),
+            headline5: TextStyle(color: generateMaterialColor(Palette.text)),
+            headline6: TextStyle(color: generateMaterialColor(Palette.text)),
+            subtitle1: TextStyle(color: generateMaterialColor(Palette.text)),
+            subtitle2: TextStyle(color: generateMaterialColor(Palette.text)),
+          )),
       initialRoute: '',
     );
   }
