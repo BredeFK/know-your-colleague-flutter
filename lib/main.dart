@@ -18,15 +18,17 @@ class MainAppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Know your colleague',
-      routes: {'': (context) => const DashboardPage(), '/game': (context) => const GamePage() },
+      routes: {
+        '': (context) => const DashboardPage(),
+        '/game': (context) => const GamePage()
+      },
       theme: ThemeData(
         primarySwatch: generateMaterialColor(Palette.primary),
         scaffoldBackgroundColor: generateMaterialColor(Palette.background),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: generateMaterialColor(Palette.secondary)
-          ),
-        )
+              primary: generateMaterialColor(Palette.secondary)),
+        ),
       ),
       initialRoute: '',
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:know_your_colleague_flutter/domain/scoreround.dart';
 import 'package:know_your_colleague_flutter/pages/dashboard_page.dart';
+import 'package:know_your_colleague_flutter/theme/material_color_generator.dart';
+import 'package:know_your_colleague_flutter/theme/palette.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
@@ -44,7 +46,10 @@ class GameFinishedPage extends StatelessWidget {
 List<Widget> _allScoreRoundsAsWidgets(List<ScoreRound> scoreRounds) {
   return scoreRounds
       .map((scoreRound) => ListTile(
-            title: Text('${scoreRound.points} - ${scoreRound.date}'),
+            title: Text(
+              '${scoreRound.points} - ${scoreRound.date}',
+              style: TextStyle(color: generateMaterialColor(Palette.text)),
+            ),
           ))
       .toList();
 }
@@ -62,10 +67,6 @@ Future<List<ScoreRound>> _saveAndGetScore(score) async {
     scoresList.add(sr);
   }
   prefs.setString('scores', ScoreRound.encode(scoresList));
-
-  for (var element in scoresList) {
-    debugPrint('\x1B[32mScore is: ${element.date} - ${element.points} \x1B[0m');
-  }
 
   scoresList.sort((x, y) => y.points - x.points);
   return scoresList;
