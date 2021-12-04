@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:know_your_colleague_flutter/pages/game_finished_page.dart';
+import 'package:know_your_colleague_flutter/theme/material_color_generator.dart';
+import 'package:know_your_colleague_flutter/theme/palette.dart';
 import 'package:know_your_colleague_flutter/transitions/slide_transitions.dart';
 import 'dashboard_page.dart';
 import 'game_pages.dart';
@@ -34,7 +36,13 @@ class _GameStepsPageState extends State<GameStepsPage> {
     GameData game =  games.removeLast();
     game.options.shuffle();
     return Column(
-      children: <Widget>[SizedBox(
+      children: <Widget>[FittedBox(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: const Text('Test 1/1')
+        ),
+        fit: BoxFit.fill,
+      ),SizedBox(
         height: 260,
         width: 260,
         child: FittedBox(
@@ -56,7 +64,14 @@ class _GameStepsPageState extends State<GameStepsPage> {
               });
             },
             child: Text(e.name),
-          ),
+              style: ElevatedButton.styleFrom(
+                  primary: generateMaterialColor(Palette.secondary),
+                  minimumSize: const Size(double.infinity,50.0),
+                  textStyle: const TextStyle(fontSize: 22)
+              ),
+
+
+          )
         ),
       ))],
     );
