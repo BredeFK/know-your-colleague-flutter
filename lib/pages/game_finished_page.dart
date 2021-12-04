@@ -87,7 +87,11 @@ Future<List<ScoreRound>> _saveAndGetScore(score) async {
   }
   prefs.setString('scores', ScoreRound.encode(scoresList));
 
-  var lastTen = scoresList.sublist(scoresList.length - 10);
+  var lastTen = scoresList;
+  if (scoresList.length >= 10) {
+    lastTen = scoresList.sublist(scoresList.length - 10);
+  }
+
   lastTen.sort((x, y) => y.points - x.points);
   return lastTen;
 }
