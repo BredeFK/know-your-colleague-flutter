@@ -21,6 +21,12 @@ class MainAppWidget extends StatelessWidget {
       routes: {'': (context) => const DashboardPage(), '/game': (context) => const GamePage() },
       theme: ThemeData(
         primarySwatch: generateMaterialColor(Palette.primary),
+        scaffoldBackgroundColor: generateMaterialColor(Palette.background),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: generateMaterialColor(Palette.secondary)
+          ),
+        )
       ),
       initialRoute: '',
     );
